@@ -21,15 +21,15 @@ def motor_screw(r, h, f):
 
 def cables_hole():
 	t = T
-	pnts = points([(17,0), (0,-10), (-17,0)])
+	pnts = points([(18,0), (0,-11), (-18,0)])
 	spine = interpolate(pnts)
-	chole_width = 5
+	chole_width = 7
 	tt = spine.d1(0)
 	pt = tt.cross(vector(0,0,1)).normalize()
 	perp = segment(point(pt*chole_width/2), point(-pt*chole_width/2))
 	cables_hole = pipe(profile=perp.move(*pnts[0]), spine=spine) \
 		+ circle(chole_width/2).move(*pnts[0]) + circle(chole_width/2).move(*pnts[-1])
-	return cables_hole.extrude(t) 
+	return cables_hole#.extrude(t) 
 
 def stolb(r1,r2,r3,h1,angles=(deg(0),deg(90),deg(180),deg(270))):
 	b = cylinder(r=r1,h=h1)
@@ -39,6 +39,12 @@ def stolb(r1,r2,r3,h1,angles=(deg(0),deg(90),deg(180),deg(270))):
 	for d in angles:
 		b = b + tri.rotateX(deg(90)).rotateZ(d)
 
+	return (b 
+		- cylinder(r=r2,h=h1)
+	)
+
+def stolb2(r1,r2,h1):
+	b = cylinder(r=r1,h=h1)
 	return (b 
 		- cylinder(r=r2,h=h1)
 	)

@@ -6,6 +6,8 @@ from globals import *
 from room import Room
 from rotplate import RotationPlate
 
+#zencad.lazy.fastdo=True
+
 class Fork(zencad.assemble.unit):
 	def __init__(self):
 		super().__init__()
@@ -131,7 +133,7 @@ class ConnectionCylinder(zencad.assemble.unit):
 			(cylinder(r=4,h=3) - cylinder(r=3,h=3))
 				.move(ROOF_R-10, 0, T).rotZ(deg(45)) 
 			)
-		m -= cables_hole().mirrorXZ()
+		m -= cables_hole().extrude(T).mirrorXZ()
 		return m
 
 #class RotaryBase:
