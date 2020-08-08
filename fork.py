@@ -87,14 +87,16 @@ class Fork(zencad.assemble.unit):
 			- icyl
 		)
 
-		stlb = stolb2(2.5,1.5,h-T*2).mirrorXY() + box(T,10,h-T/2-5, center=True).mov(0,0,h/2)
+		middle -= cylinder(r=R, h=T).movZ(h-T)
+
+		stlb = stolb2(2.5,1.5,h-T*2).mirrorXY()# + box(T,10,h-T/2-5, center=True).mov(0,0,h/2)
 		supports = sqrmirror()(
 			stlb.move(ROOF_R-10, 0, h-T).rotZ(deg(45))
 		)
 
 		return unify(
 			middle 
-			+ supports
+		#	+ supports
 			#+ supports.mirrorYZ()
 		)
 
@@ -118,8 +120,9 @@ class Fork1(Fork):
 if __name__ == "__main__":
 	fork0 = Fork0()
 	fork1 = Fork1()
-	disp(fork0.rotateY(deg(45)))
-	#disp(fork1)
+	#disp(fork0.rotateY(deg(45)))
+	disp(fork0)
+	disp(fork1)
 
 
 	

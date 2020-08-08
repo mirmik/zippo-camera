@@ -27,7 +27,7 @@ class RotationPlate(zencad.assemble.unit):
 		spike_n = SPIKE_N
 		light_r = LIGHT_R
 
-		stub_size = (5,2,2)
+		stub_size = (5,2,2.7)
 		stub_r = 28
 	
 		basebox = box(self.x, self.y, t, center=True).up(t/2)		

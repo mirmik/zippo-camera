@@ -86,6 +86,29 @@ class Room(zencad.assemble.unit):
 
 		f = unify(
 			base - panel.bbox().shape() + panel
+			- multitrans([
+				#move(x/2-t/2, 0, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(x/2-t/2, 11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(x/2-t/2, 22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(x/2-t/2, 33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(x/2-t/2, -11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(x/2-t/2, -22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(x/2-t/2, -33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(-x/2+t/2, 0, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(-x/2+t/2, 11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(-x/2+t/2, 22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(-x/2+t/2, 33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(-x/2+t/2, -11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(-x/2+t/2, -22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				move(-x/2+t/2, -33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
+				#move(0, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
+				#move(11, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
+				#move(22, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
+				#move(33, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
+				#move(-11, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
+				#move(-22, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
+				#move(-33, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
+			])(widewire(segment((0,0),(0,20)), r=4).extrude(T,center=True))
 			- box(2, y-2*t, t, center=True).movZ(t/2).movX(x/2-t-1)
 			- box(2, y-2*t, t, center=True).movZ(t/2).movX(-x/2+t+1)
 			+ (fakel ^ base.bbox().shape())

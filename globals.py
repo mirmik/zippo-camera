@@ -7,7 +7,7 @@ LIGHT_R = 6
 LIGHT_HOLES = rotate_array(SPIKE_N)(cylinder(r=LIGHT_R, h=T).left(ROOF_R-LIGHT_R-T).rotateZ(deg(360/8/2)))
 BORDER_T = 3
 
-SPIKE_R1=3
+SPIKE_R1=3.5
 SPIKE_R2 = ROOF_R - SPIKE_R1 - T
 
 NUT_HOLE1 = rotate_array(4)((cylinder(r=1,h=T)+cone(r1=1,r2=2,h=T/2).up(T/2)).left(ROOF_R-T-2).rotateZ(deg(360/40)))
