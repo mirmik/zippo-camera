@@ -6,7 +6,9 @@ from globals import *
 class ConnectionCylinder(zencad.assemble.unit):
 	def __init__(self):
 		super().__init__()
-		self.add(self.model())
+		m = self.model()
+
+		self.add(m)
 
 	def model(self):
 		m = cylinder(ROOF_R-T, T*2)
@@ -33,10 +35,13 @@ class ConnectionCylinder(zencad.assemble.unit):
 
 		m += box(5,T,2, center=True).move(28,0,-T+2/2)
 
+
+		self.socket = zencad.assemble.unit(parent=self)
+
 		return m
 
 if __name__ == "__main__":
 	concyl = ConnectionCylinder()
-	disp(concyl)
-	to_stl(concyl.model(), "/home/mirmik/models/concyl.stl", delta=0.1)
+	disp(concyl.model())
+	to_stl(concyl.model().rotateY(deg(180)), "./concyl.stl", delta=0.1)
 	show()

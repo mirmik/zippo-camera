@@ -69,48 +69,28 @@ class Room(zencad.assemble.unit):
 		ir = 1.8
 		sh = plate_legs_size
 		spi_kreps = union([
-			stolb2(srad,ir,sh).move(px/2-srad,-(y/2-3-t*1-0.5),0),
-			stolb2(srad,ir,sh).move(-px/2+srad,-(y/2-3-t*1-0.5),0),
-			stolb2(srad,ir,sh).move(px/2-srad,-(y/2-3-t*1-1-34.5),0),
-			stolb2(srad,ir,sh).move(-px/2+srad,-(y/2-3-t*1-1-34.5),0)
+			stolb(srad,ir,7,sh).move(px/2-srad,-(y/2-3-t*1-0.5),0),
+			stolb(srad,ir,7,sh).move(-px/2+srad,-(y/2-3-t*1-0.5),0),
+			stolb(srad,ir,7,sh).move(px/2-srad,-(y/2-3-t*1-1-34.5),0),
+			stolb(srad,ir,7,sh).move(-px/2+srad,-(y/2-3-t*1-1-34.5),0)
 		]).up(t)
 
 		spi_kreps2 = sqrmirror()(
-			stolb2(srad,ir,sh).move(35/2-3, 32/2-3),
+			stolb(srad,ir,7,sh).move(35/2-3, 32/2-3),
 		).up(t)
 
 		ardu_kreps = sqrmirror()(
-			stolb2(2,1.5/2,sh).move(44/2-1, 18/2-1),
+			stolb(2,1.8/2,7,sh).move(44/2-1, 18/2-1),
 		).up(t)
 
 
-		f = unify(
+		f = unify((
 			base - panel.bbox().shape() + panel
 			- multitrans([
-				#move(x/2-t/2, 0, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(x/2-t/2, 11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(x/2-t/2, 22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(x/2-t/2, 33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(x/2-t/2, -11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(x/2-t/2, -22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(x/2-t/2, -33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(-x/2+t/2, 0, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(-x/2+t/2, 11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(-x/2+t/2, 22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(-x/2+t/2, 33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(-x/2+t/2, -11, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(-x/2+t/2, -22, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
 				move(-x/2+t/2, -33, 5 + 2) * rotateZ(deg(90)) * rotateX(deg(90)),
-				#move(0, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
-				#move(11, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
-				#move(22, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
-				#move(33, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
-				#move(-11, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
-				#move(-22, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
-				#move(-33, y/2-t/2, 5 + 2) * rotateZ(deg(0)) * rotateX(deg(90)),
 			])(widewire(segment((0,0),(0,20)), r=4).extrude(T,center=True))
-			- box(2, y-2*t, t, center=True).movZ(t/2).movX(x/2-t-1)
-			- box(2, y-2*t, t, center=True).movZ(t/2).movX(-x/2+t+1)
+			#- box(2, y-2*t, t, center=True).movZ(t/2).movX(x/2-t-1)
+			#- box(2, y-2*t, t, center=True).movZ(t/2).movX(-x/2+t+1)
 			+ (fakel ^ base.bbox().shape())
 			#- roof_trans(cylinder(r=ROOF_R, h=t))
 			#+ roof_trans(self.roof())
@@ -118,7 +98,7 @@ class Room(zencad.assemble.unit):
 			+ spi_kreps2.move(-25,+11)
 			+ spi_kreps2.move(+25,+15)
 			+ ardu_kreps.move(-21, 38)
-		)
+		) ^ base.bbox().shape()) 
 
 		#f = f.move(-x/2,-y/2,self.t).rotX(deg(180)).movZ(z)
 		#self.socket = zencad.assemble.unit(parent=self, location=moveZ(z))

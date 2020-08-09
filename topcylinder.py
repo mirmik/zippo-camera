@@ -8,7 +8,10 @@ class TopCylinder(zencad.assemble.unit):
 
 	def __init__(self):
 		super().__init__()
-		self.add(self.model())
+		m = self.model()
+		m = m.rotateX(deg(180)).movZ(self.H)
+		self.relocate(up(T))
+		self.add(m)
 
 	def model(self):
 		m = cylinder(r=ROOF_R, h=self.H)
@@ -35,21 +38,13 @@ class TopCylinder(zencad.assemble.unit):
 			move(-w2+1+T/2, 0, 5+T+T),
 		])(cylinder(r=1.9/2,h=1000, center=True).rotX(deg(90)))
 
-		m += sqrtrans()(stolb(2.5,1.5,7,self.H).move(ROOF_R-10, 0, 0).rotZ(deg(45)))
-
-		#m += multitrans([
-		#	move(0,k,h2/2),
-		#	move(0,-k,h2/2),
-		#])(box(w+10,1,h2,center=True))
-		#m -= multitrans([
-		#	move(0,ROOF_R,self.H-h/2),
-		#	move(0,-ROOF_R,self.H-h/2),
-		#])(box(w,100,h,center=True))
+		m += sqrmirror()(stolb(2.5,1.5,7,self.H).move(ROOF_R-10, 0, 0).rotZ(deg(45)))
 
 		return m
 
 
 if __name__ == "__main__":
 	module = TopCylinder()
-	disp(module)
+	to_stl(module.model(), "topcylinder.stl", 0.01)
+	disp(module.model())
 	show()
