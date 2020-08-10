@@ -4,7 +4,7 @@ from zencad import *
 from globals import *
 
 class TopMotorHolder(zencad.assemble.unit):
-	H = 5
+	H = 3
 
 	def __init__(self):
 		super().__init__()
@@ -17,20 +17,6 @@ class TopMotorHolder(zencad.assemble.unit):
 		m += widewire(segment((-21+3,0,0), (21-3,0,0)), 3.5+T).extrude(self.H)
 		m += box(15+2*T, 17+T, self.H).movX(-15/2-T)
 
-		#XR = (21-3) * math.sin(deg(45))
-		#p2 = rotateZ(deg(45))(point3(15/2+T - 4,17+T))
-		#p3 = rotateZ(deg(45))(point3(15/2+T+8,17+T))
-#
-		#plg = polygon([
-		#	point3(-XR, -XR-3.5-T),
-		#	point3(20, -XR-3.5-T),
-		#	point3(20, p3.y),				
-		#	p3,
-		#	p2,
-		#])#.rotZ(deg(45))
-#
-		#eplg = plg.extrude(T)
-
 		m -= box(15, 17, self.H).movX(-15/2).up(T)
 		m -= box(6,1000,1000).move(-3,0,T)
 		m -= cylinder(r=28/2, h=self.H-T).up(T) 
@@ -41,25 +27,43 @@ class TopMotorHolder(zencad.assemble.unit):
 		m -= cylinder(r=2,h=T).move(21-3,0,0)
 		m -= cylinder(r=2,h=T).move(-21+3,0,0)
 		m -= cylinder(r=5,h=T).movY(-8)
-		m = unify(m)
+		#m = unify(m)
+		
+		h1 = self.holder().rotZ(deg(45)).move(point3(15+2*T, 17+T))
+		h2 = self.holder().rotZ(deg(-135)).move(point3(-18-7,7,0))
 
-		#eplg = eplg.rotateZ(deg(-45))
-
-		#eplg -= cylinder(r=2,h=T).move(21-3,0,0)
-		#eplg -= cylinder(r=2,h=T).move(-21+3,0,0)
-		#eplg -= cylinder(r=5,h=T).movY(-8)
-
-		#m += hl(eplg)
-		#m = m.rotZ(deg(45)) + eplg#.rotZ(deg(45))
-
-
-		#hl(plg)
+		m += h1
+		m += h2
 
 		return m
 
+	def holder(self):
+		H = 5
+		B = 6
+		W = 5
+
+		t = 1
+
+		stif = polygon([
+			(0,0),
+			(H-T, 0),
+			(0, B-T),
+		]).extrude(t,center=True)
+
+		stif = stif.rotateY(deg(-90)).up(T).forw(T)
+
+		base = box(W,B,T).movX(-W/2)
+		base2 = box(W,H,T).rotX(deg(90)).movY(T).movX(-W/2)
+		
+		m = (base + base2 
+			+ stif.movX(W/2 - t/2)
+			+ stif.movX(-W/2 + t/2)
+		)
+
+		return m
 
 if __name__ == "__main__":
 	module = TopMotorHolder()
-	disp(module)
+	disp(module.model())
 	to_stl(module.model(), "topmotor-holder.stl", delta=0.1)
 	show()
