@@ -29,18 +29,25 @@ class TopMotorHolder(zencad.assemble.unit):
 		m -= cylinder(r=5,h=T).movY(-8)
 		#m = unify(m)
 		
-		h1 = self.holder().rotZ(deg(45)).move(point3(15+2*T, 17+T))
-		h2 = self.holder().rotZ(deg(-135)).move(point3(-18-7,7,0))
+		h1 = self.holder().rotZ(deg(-135)).move(point3(17, 16))
+		h2 = self.holder().rotZ(deg(-135)).move(point3(-18-2.5,2.5,0))
 
 		m += h1
 		m += h2
 
-		return m
+		m += (polygon([
+			point3(23.17047,1.87517),
+			point3(19.63612,19.02074),
+			point3(6.31604,19.00000),
+			point3(10.43564,5.50000)
+		]).extrude(T))
+
+		return m.rotZ(deg(-45))
 
 	def holder(self):
-		H = 5
-		B = 6
-		W = 5
+		H = 8
+		B = 8
+		W = 8
 
 		t = 1
 
@@ -58,7 +65,9 @@ class TopMotorHolder(zencad.assemble.unit):
 		m = (base + base2 
 			+ stif.movX(W/2 - t/2)
 			+ stif.movX(-W/2 + t/2)
-		)
+		).movY(-B)
+
+		m -= cylinder(r=2, h=1000, center=True).rotX(deg(90)).up(H/2 + T/2)
 
 		return m
 
