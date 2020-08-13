@@ -32,13 +32,24 @@ class TopCylinder(zencad.assemble.unit):
 
 		m -= multitrans(
 		[
-			move(w2-1-T/2, 0, T+T),
-			move(-w2+1+T/2, 0, T+T),
-			move(w2-1-T/2, 0, 5+T+T),
-			move(-w2+1+T/2, 0, 5+T+T),
+			move(w2-1-T, 0, T+T),
+			move(-w2+1+T, 0, T+T),
+			move(w2-1-T, 0, 7+T+T),
+			move(-w2+1+T, 0, 7+T+T),
 		])(cylinder(r=1.9/2,h=1000, center=True).rotX(deg(90)))
 
-		m += sqrmirror()(stolb(2.5,1.5,7,self.H).move(ROOF_R-10, 0, 0).rotZ(deg(45)))
+		#m += sqrmirror()(stolb(2.5,1.5,7,self.H).move(ROOF_R-10, 0, 0).rotZ(deg(45)))
+		m += sqrmirror()(
+			(cylinder(r=5,h=self.H) + box(10,10,self.H).move(0,-5,0))
+
+			.move(ROOF_R-10, 0, 0).rotZ(deg(45))) ^ cylinder(r=ROOF_R, h=self.H)
+
+		m -= sqrmirror()(
+			(cylinder(r=1.4,h=self.H-T)).up(T)
+			.move(ROOF_R-10, 0, 0).rotZ(deg(45)))
+
+		self.socket0 = zencad.assemble.unit(parent=self, location=move(0,ROOF_R) * rotateZ(deg(90)))
+		self.socket1 = zencad.assemble.unit(parent=self, location=move(0,-ROOF_R)* rotateZ(-deg(90)))
 
 		return m
 

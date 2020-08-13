@@ -4,6 +4,7 @@ from zencad import *
 from globals import *
 
 from stereopanel import plate
+from topmotor_holder import TopMotorHolder
 
 class CameraRoom(zencad.assemble.unit):
 
@@ -19,8 +20,8 @@ class CameraRoom(zencad.assemble.unit):
 
 		X = p.bbox().xmax - p.bbox().xmin + 2*T 
 		Z = p.bbox().ymax - p.bbox().ymin + 2*T
-		ZU = 5
-		Y = 70
+		ZU = 15
+		Y = 80
 
 		m = box(X,Y,Z+ZU, center=True)
 		m -= box(X-2*T,Y-T,Z-T+ZU, center=True).move(0,T/2,T/2)
@@ -43,14 +44,17 @@ class CameraRoom(zencad.assemble.unit):
 			- cylinder(r=1,h=T,center=True).moveX(-31/2)
 		)
 
-		mh = mh.rotY(deg(90)).rotX(deg(45)).movX(X/2-T/2-T).mov(0,8*math.cos(deg(45)),8*math.cos(deg(45)))
-
-		hl(mh)
-
+		self.socket = zencad.assemble.unit(parent=self)
+		self.socket.down(Z/2-T).rotateZ(deg(-90)).forw(-9).left(40)
+ 
 		return unify(m)
 
 if __name__ == "__main__":
 	croom = CameraRoom()
+	hld = TopMotorHolder()
 
-	disp(croom.model())
+	croom.socket.link(hld)
+
+	to_stl(croom.model(), "camerabody.stl",  0.01)
+	disp(croom)
 	show()

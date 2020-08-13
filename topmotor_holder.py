@@ -9,6 +9,9 @@ class TopMotorHolder(zencad.assemble.unit):
 	def __init__(self):
 		super().__init__()
 		m = self.model()
+
+		
+		self.relocate(move(-15,5,12+8) * rotateX(deg(90)))
 		self.add(m)
 		
 		
@@ -28,21 +31,25 @@ class TopMotorHolder(zencad.assemble.unit):
 		m -= cylinder(r=2,h=T).move(-21+3,0,0)
 		m -= cylinder(r=5,h=T).movY(-8)
 		#m = unify(m)
-		
-		h1 = self.holder().rotZ(deg(-135)).move(point3(17, 16))
-		h2 = self.holder().rotZ(deg(-135)).move(point3(-18-2.5,2.5,0))
+
+		m = m.rotZ(deg(45))
+
+		h1 = self.holder().rotZ(deg(0)).move(point3(-20.5,-12))
+		h2 = self.holder().rotZ(deg(0)).move(point3(15,-12))
 
 		m += h1
 		m += h2
 
 		m += (polygon([
-			point3(23.17047,1.87517),
-			point3(19.63612,19.02074),
-			point3(6.31604,19.00000),
-			point3(10.43564,5.50000)
+			point3(18,12),
+			point3(19,-12),
+			point3(11,-19),
+			point3(10,-12),
+			point3(12,0),
+			point3(12,5)
 		]).extrude(T))
 
-		return m.rotZ(deg(-45))
+		return m
 
 	def holder(self):
 		H = 8
@@ -73,6 +80,6 @@ class TopMotorHolder(zencad.assemble.unit):
 
 if __name__ == "__main__":
 	module = TopMotorHolder()
-	disp(module.model())
-	to_stl(module.model(), "topmotor-holder.stl", delta=0.1)
+	disp(module)
+	to_stl(module.model(), "topmotor_holder.stl", delta=0.1)
 	show()

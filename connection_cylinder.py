@@ -25,7 +25,7 @@ class ConnectionCylinder(zencad.assemble.unit):
 			)
 
 		m -= sqrmirror()(
-			(cylinder(r=4,h=T))
+			(cylinder(r=5.2,h=T) + box(10.4,10.4,T).move(0,-5.2))
 				.move(ROOF_R-10, 0, T).rotZ(deg(45)) 
 			)
 
