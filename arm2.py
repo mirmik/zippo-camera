@@ -3,12 +3,12 @@
 from zencad import *
 from globals import *
 
-class Arm(zencad.assemble.unit):
+class Arm2(zencad.assemble.unit):
 	X = 16
-	X2 = 30
+	X2 = 35
 	Y = 8
-	H = 13.5
-	H2 = 5
+	H = 24
+	H2 = 10
 
 	Y2 = Y * math.sqrt(2)
 
@@ -21,19 +21,6 @@ class Arm(zencad.assemble.unit):
 		self.add(m)
 
 	def model(self):
-		#m = box(100, self.X, self.Y).back(self.X/2)
-		#m -= box(100, self.X-2*T, self.Y-T).back(self.X/2).up(T).forw(T)
-#
-		#m=m.rotateY(deg(-45))
-		##m -= box(self.W-2*T, self.W-T, self.W-T, center=True).move(0,T/2,T/2).up(self.W/2)
-#
-		#m -= halfspace().rotateY(deg(90))
-		#m -= halfspace().mirrorXY().up(self.H)
-#
-		#m2 = (
-		#	box(self.Y2, self.X, self.H2)
-		#	- box(self.Y2 - T*math.sqrt(2), self.X-2*T, self.H2).move(0,T)
-		#).move(self.H-self.Y2 ,-self.X/2,self.H)
 
 		POINTS = points([
 			(0,0),
@@ -85,7 +72,7 @@ class Arm(zencad.assemble.unit):
 
 		m += lll
 
-		#m -= sqrmirror()(cylinder(r=1.8/2,h=100).move(4, (self.X2-2*T)/2)).move(self.L0 + 5.5)
+		#m -= sqrmirror()(cylinder(r=1.8/2,h=100).move(4, (self.X2 - T*2)/2)).move(self.L0 + 5.5)
 
 		m -= cylinder(r=1.8/2,h=100).move(self.L0 + 6, (self.X2 - T*2)/2)
 		m -= cylinder(r=1.8/2,h=100).move(self.L0 + 6, -(self.X2 - T*2)/2)
@@ -98,7 +85,7 @@ class Arm(zencad.assemble.unit):
 
 
 if __name__ == "__main__":
-	module = Arm()
-	to_stl(module.model(), "arm.stl", 0.01)
+	module = Arm2()
+	to_stl(module.model(), "arm2.stl", 0.01)
 	disp(module)
 	show()

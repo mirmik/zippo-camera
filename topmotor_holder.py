@@ -6,12 +6,17 @@ from globals import *
 class TopMotorHolder(zencad.assemble.unit):
 	H = 3
 
+	Y = 11.5
+	X = 20
+	X2 = 30
+	Z = 11
+
 	def __init__(self):
 		super().__init__()
 		m = self.model()
 
 		
-		self.relocate(move(-15,5,12+8) * rotateX(deg(90)))
+		#self.relocate(move(-15,5,12+8) * rotateX(deg(90)))
 		self.add(m)
 		
 		
@@ -20,34 +25,40 @@ class TopMotorHolder(zencad.assemble.unit):
 		m += widewire(segment((-21+3,0,0), (21-3,0,0)), 3.5+T).extrude(self.H)
 		m += box(15+2*T, 17+T, self.H).movX(-15/2-T)
 
-		m -= box(15, 17, self.H).movX(-15/2).up(T)
+		m -= box(16, 17.5, self.H).movX(-16/2).up(T)
 		m -= box(6,1000,1000).move(-3,0,T)
-		m -= cylinder(r=28/2, h=self.H-T).up(T) 
-		m -= (box(21*2-3*2, 7, self.H, center=True).up(T+self.H/2) 
-				+ cylinder(r=3.5, h=self.H-T).movX(21-3).up(T)
-				+ cylinder(r=3.5, h=self.H-T).movX(-21+3).up(T)
+		m -= cylinder(r=29/2, h=self.H-T).up(T) 
+		m -= (box(21*2-3*2, 8, self.H, center=True).up(T+self.H/2) 
+				+ cylinder(r=4, h=self.H-T).movX(21-3).up(T)
+				+ cylinder(r=4, h=self.H-T).movX(-21+3).up(T)
 			)
 		m -= cylinder(r=2,h=T).move(21-3,0,0)
 		m -= cylinder(r=2,h=T).move(-21+3,0,0)
 		m -= cylinder(r=5,h=T).movY(-8)
-		#m = unify(m)
 
-		m = m.rotZ(deg(45))
+		m = m.rotX(deg(-90)).up(17+T).back(T)
+		m = m.rotZ(deg(-90))#.rotX(deg(180))#.up(42.5)
 
-		h1 = self.holder().rotZ(deg(0)).move(point3(-20.5,-12))
-		h2 = self.holder().rotZ(deg(0)).move(point3(15,-12))
+		m = m.movX(T)
 
-		m += h1
-		m += h2
+		r = box(self.Y , self.X2, 1.4).move(0, -self.X2/2)
+		r -= box(9, 15, 1.4).move(0, -7.5)
 
-		m += (polygon([
-			point3(18,12),
-			point3(19,-12),
-			point3(11,-19),
-			point3(10,-12),
-			point3(12,0),
-			point3(12,5)
-		]).extrude(T))
+		m += r
+
+		m -= cylinder(r=1.8/2,h=100).move(6, (self.X2 - T*2)/2)
+		m -= cylinder(r=1.8/2,h=100).move(6, -(self.X2 - T*2)/2)
+
+		p = polygon([
+			(0,0),
+			(11,0),
+			(0,8)
+		]).extrude(T,center=True)
+
+		p = p.rotX(deg(90))
+
+		m += p.movY(self.X/2 - T/2)	
+		m += p.movY(-self.X/2 +T/2)		
 
 		return m
 
