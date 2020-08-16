@@ -23,7 +23,7 @@ class WireConductor(zencad.assemble.unit):
 		m += box(self.X2,T,self.Z).move(-self.X2/2,0,0)
 		m += cylinder(r=10,h=self.Z).movY(self.Y)
 
-		m += cylinder(r=self.RADIUS,h=18).movY(self.Y)
+		m += cylinder(r=self.RADIUS,h=16).movY(self.Y)
 		m -= cylinder(r=8,h=18).movY(self.Y).up(T)
 
 		m -= box(self.X-2*T,self.Y,self.Z-2*T).move(-self.X/2+T,0,T)

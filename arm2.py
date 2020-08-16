@@ -12,7 +12,7 @@ class Arm2(zencad.assemble.unit):
 
 	Y2 = Y * math.sqrt(2)
 
-	L0 = 13 
+	L0 = 12 
 	L1 = L0 + 10
 
 	def __init__(self):
