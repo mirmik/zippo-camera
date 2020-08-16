@@ -60,6 +60,12 @@ class TopMotorHolder(zencad.assemble.unit):
 		m += p.movY(self.X/2 - T/2)	
 		m += p.movY(-self.X/2 +T/2)		
 
+		m += cylinder(r=9.9,h=5).rotY(deg(-90)).up(27) - cylinder(r=8.5,h=5).rotY(deg(-90)).up(27) 
+
+		j = (circle(10)-circle(r=8).move(1,0)).extrude(T).rotY(deg(90)).up(26.9)
+
+		m+=j
+
 		return m
 
 	def holder(self):
