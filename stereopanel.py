@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 from zencad import *
 
-import trimesh
-
 eye_width = 130/2
 	
 left_eye_transform = left(eye_width / 2)
