@@ -46,11 +46,11 @@ class Fork(zencad.assemble.unit):
 		bbb = box(bx,by,bz,center=True).move(-hear_x - bx/2, 0 , hear_z-bz/2)
 		ibbb = box(bx-T,by-2*T,bz,center=True).move(-hear_x - bx/2 +T/2, 0 , hear_z-bz/2)
 
-		botwire1 = near_face(bbb, point(-hear_x-bx/2, 0, -10000)).wires()[0]
+		botwire1 = near_face(bbb, point3(-hear_x-bx/2, 0, -10000)).wires()[0]
 		botwire2 = botwire1.move(-botwire1.props1().center())
 		botwire2 = botwire2.moveX(-ROOF_R/2)
 		
-		ibotwire1 = near_face(ibbb, point(-hear_x-bx/2, 0, -10000)).wires()[0]
+		ibotwire1 = near_face(ibbb, point3(-hear_x-bx/2, 0, -10000)).wires()[0]
 		#ibotwire2 = ibotwire1.move(-ibotwire1.props1().center())
 		#ibotwire2 = ibotwire2.moveX(-self.roof_r/2 + self.t)
 #
@@ -66,8 +66,8 @@ class Fork(zencad.assemble.unit):
 		ihear0 = ihear_c
 		ihear0 = ihear0.move(-hear_x, 0 , hear_z)
 		ihear_c2 = (cylinder(r=6,h=bz,center=True)-halfspace().rotateY(deg(90)).left(bx/2-T)).move(-hear_x - bx/2, 0 , hear_z-bz/2)
-		ihear_c2_face0 = near_face(ihear_c2, point(-hear_x-bx/2, 0, -10000))
-		ihear_c2_face1 = near_face(ihear_c2, point(-hear_x-bx/2, 0, -10000)).move(hear_x - ixk + hear_h, 0, -hear_z+bz-T*2.5)
+		ihear_c2_face0 = near_face(ihear_c2, point3(-hear_x-bx/2, 0, -10000))
+		ihear_c2_face1 = near_face(ihear_c2, point3(-hear_x-bx/2, 0, -10000)).move(hear_x - ixk + hear_h, 0, -hear_z+bz-T*2.5)
 		ihear0 += ihear_c2 
 		ihear0 += loft([ihear_c2_face1.wires()[0], ihear_c2_face0.wires()[0]])
 		ihear0 += sphere(12).move(-iR+10,0,0)

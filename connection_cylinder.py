@@ -2,6 +2,7 @@
 
 from zencad import *
 from globals import *
+zencad.lazy.fastdo = True
 
 class ConnectionCylinder(zencad.assemble.unit):
 	def __init__(self):
@@ -31,7 +32,7 @@ class ConnectionCylinder(zencad.assemble.unit):
 
 		m -= cables_hole().extrude(T*2).mirrorXZ()
 		
-		m = fillet(m, refs=[point3(0,5,0), point3(0,5,5)], r=1)
+#		m = fillet(m, refs=[point3(0,5,0), point3(0,5,5)], r=1)
 
 		m += box(5,T,2, center=True).move(28,0,-T+2/2)
 

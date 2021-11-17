@@ -54,10 +54,10 @@ class CameraRoom(zencad.assemble.unit):
 		m -= cylinder(r=1.8,h=8).move(-X/2+BSIZE[0]/2-5/2 + 2, -Y/2+BSIZE[1]/2+T, Z/2+ZU-T-FAKEL_Z)
 		m -= cylinder(r=1.8,h=8).move(X/2-BSIZE[0]/2+5/2 - 2, -Y/2+BSIZE[1]/2+T, Z/2+ZU-T-FAKEL_Z)
 
-		p1 = point((90-5)/2, (40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
-		p2 = point((90-5)/2, -(40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
-		p3 = point(-(90-5)/2, -(40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
-		p4 = point(-(90-5)/2, (40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
+		p1 = point3((90-5)/2, (40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
+		p2 = point3((90-5)/2, -(40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
+		p3 = point3(-(90-5)/2, -(40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
+		p4 = point3(-(90-5)/2, (40-5)/2,-Z/2).rotZ(deg(PLATE_ANGLE))
 		
 		CYLH = 10
 		m += sqrmirror()(cylinder(r=2.5, h=CYLH).move((90-5)/2, (40-5)/2)).rotZ(deg(PLATE_ANGLE)).down(Z/2)

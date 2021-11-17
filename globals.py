@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from zencad import *
 
 T=2
@@ -24,12 +25,12 @@ def cables_hole():
 	pnts = points([(18,0), (0,-11), (-18,0)])
 	spine = interpolate(pnts)
 	chole_width = 7
-	tt = spine.d1(0)
-	pt = tt.cross(vector(0,0,1)).normalize()
-	perp = segment(point(pt*chole_width/2), point(-pt*chole_width/2))
-	cables_hole = pipe(profile=perp.move(*pnts[0]), spine=spine) \
-		+ circle(chole_width/2).move(*pnts[0]) + circle(chole_width/2).move(*pnts[-1])
-	return cables_hole#.extrude(t) 
+	#tt = spine.d1(0)
+	#pt = tt.cross(vector3(0,0,1)).normalize()
+	#perp = segment(point3(pt*chole_width/2), point3(-pt*chole_width/2))
+	#cables_hole = pipe_shell([perp.move(*pnts[0])], spine=spine) \
+	#	+ circle(chole_width/2).move(*pnts[0]) + circle(chole_width/2).move(*pnts[-1])
+	return widewire(spine, 7)  #cables_hole#.extrude(t) 
 
 def stolb(r1,r2,r3,h1,angles=(deg(0),deg(90),deg(180),deg(270))):
 	b = cylinder(r=r1,h=h1)
@@ -48,3 +49,8 @@ def stolb2(r1,r2,h1):
 	return (b 
 		- cylinder(r=r2,h=h1)
 	)
+
+
+if __name__ == "__main__":
+	disp(unify(cables_hole().extrude(10)))
+	show()
