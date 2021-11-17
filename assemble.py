@@ -14,13 +14,13 @@ from wire_conductor import WireConductor
 
 
 if __name__ == "__main__":
-	room = Room()
-	plate = RotationPlate()
-	concyl = ConnectionCylinder()
-	topcylinder = TopCylinder()
+	room = Room().set_name("Корпус")
+	plate = RotationPlate().set_name("Гнездо")
+	concyl = ConnectionCylinder().set_name("Вращ.Основание")
+	topcylinder = TopCylinder().set_name("Вилка")
 	arm0 = Arm()
 	arm1 = Arm2()
-	camera = CameraRoom()
+	camera = CameraRoom().set_name("Камера")
 	wire_conductor = WireConductor()
 
 	topmotor_holder = TopMotorHolder()
@@ -45,4 +45,8 @@ if __name__ == "__main__":
 	#room.location_update()
 
 	#disp(RoomAssemble())
+
+	print(showapi.__default_scene.interactives)
+	print(room.deep_childs_list())
+
 	show()

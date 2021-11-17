@@ -2,7 +2,6 @@
 
 from zencad import *
 from globals import *
-zencad.lazy.fastdo = True
 
 class ConnectionCylinder(zencad.assemble.unit):
 	def __init__(self):

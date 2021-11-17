@@ -6,8 +6,6 @@ from globals import *
 from room import Room
 from rotplate import RotationPlate
 
-#zencad.lazy.fastdo=True
-
 class Fork(zencad.assemble.unit):
 	def __init__(self):
 		super().__init__()
