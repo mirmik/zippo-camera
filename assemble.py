@@ -42,11 +42,7 @@ if __name__ == "__main__":
 	camera.up(90)
 	disp(camera)
 	disp(room)
-	#room.location_update()
 
-	#disp(RoomAssemble())
-
-	print(showapi.__default_scene.interactives)
-	print(room.deep_childs_list())
+	prototype(circle(10)).set_name("circle")
 
 	show()
